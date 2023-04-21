@@ -6,7 +6,7 @@
 /*   By: mcatal-d <mcatal-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 00:47:02 by mcatal-d          #+#    #+#             */
-/*   Updated: 2023/04/21 03:14:52 by mcatal-d         ###   ########.fr       */
+/*   Updated: 2023/04/21 04:00:10 by mcatal-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ void   addContact(PhoneBook& phonebook)
 
     while (input == "")
     {
-        std::cout << "Enter first name: ";
+        std::cout << "Enter first name:     ";
         if(!std::getline(std::cin, input))
             exit(0);
     }
-    contact = phonebook.getContact(phonebook.getNbContact());
+    contact = phonebook.get_contact(phonebook.get_nb_contact());
     contact.set_first_name(input);
     input = "";
     while (input == "")
     {
-        std::cout << "Enter last name: ";
+        std::cout << "Enter last name:      ";
         if(!std::getline(std::cin, input))
             exit(0);
     }
@@ -38,7 +38,7 @@ void   addContact(PhoneBook& phonebook)
     input = "";
     while (input == "")
     {
-        std::cout << "Enter nickname: ";
+        std::cout << "Enter nickname:       ";
         if(!std::getline(std::cin, input))
             exit(0);
     }
@@ -46,7 +46,7 @@ void   addContact(PhoneBook& phonebook)
     input = "";
     while (input == "")
     {
-        std::cout << "Enter number: ";
+        std::cout << "Enter number:         ";
         if(!std::getline(std::cin, input))
             exit(0);
     }
@@ -59,22 +59,35 @@ void   addContact(PhoneBook& phonebook)
             exit(0);
     }
     contact.set_darkest_secret(input);
-    phonebook.set_Contact(phonebook.getNbContact(), contact);
-    phonebook.incrementNbContact();
+    phonebook.set_contact(phonebook.get_nb_contact(), contact);
+    phonebook.increment_nb_contact();
 }
 
 void    print_contact(PhoneBook& phonebook, int index)
 {
     Contact contact;
-    contact = phonebook.getContact(index);
-    std::cout << std::endl;
-    std::cout << "First name: " << contact.get_first_name() << std::endl;
-    std::cout << "Last name: " << contact.get_last_name() << std::endl;
-    std::cout << "Nickname: " << contact.get_nickname() << std::endl;
-    std::cout << "Number: " << contact.get_number() << std::endl;
+    contact = phonebook.get_contact(index);
+    std::cout << "First name:     " << contact.get_first_name() << std::endl;
+    std::cout << "Last name:      " << contact.get_last_name() << std::endl;
+    std::cout << "Nickname:       " << contact.get_nickname() << std::endl;
+    std::cout << "Number:         " << contact.get_number() << std::endl;
     std::cout << "Darkest secret: " << contact.get_darkest_secret() << std::endl;
-    std::cout << std::endl;
 }
+
+void    print_box(PhoneBook& phonebook, std::string str, int len)
+{
+    int i;
+
+    i = 10 - len;
+    while (i > 0)
+    {
+        std::cout << " ";
+        i--;
+    }
+    std::cout << str;
+    std::cout << "|";
+}
+
 void    searchContact(PhoneBook& phonebook)
 {
     int i;
@@ -82,21 +95,22 @@ void    searchContact(PhoneBook& phonebook)
     std::string input;
 
     i = 0;
-    while (i < phonebook.getNbContact())
+    std::cout << "     Index|First Name| Last Name|  Nickname|" << std::endl;
+    while (i < phonebook.get_nb_contact())
     {
-        std::cout << i << " | ";
-        if (phonebook.getContact(i).get_first_name().length() > 10)
-            std::cout << phonebook.getContact(i).get_first_name().substr(0, 9) << ". | ";
+        std::cout << "         " << i << "|";
+        if (phonebook.get_contact(i).get_first_name().length() > 10)
+            std::cout << phonebook.get_contact(i).get_first_name().substr(0, 9) << ".|";
         else
-            std::cout << phonebook.getContact(i).get_first_name() << " | ";
-        if (phonebook.getContact(i).get_last_name().length() > 10)
-            std::cout << phonebook.getContact(i).get_last_name().substr(0, 9) << ". | ";
+            print_box(phonebook, phonebook.get_contact(i).get_first_name(), phonebook.get_contact(i).get_first_name().length());
+        if (phonebook.get_contact(i).get_last_name().length() > 10)
+            std::cout << phonebook.get_contact(i).get_last_name().substr(0, 9) << ".|";
         else
-            std::cout << phonebook.getContact(i).get_last_name() << " | ";
-        if (phonebook.getContact(i).get_nickname().length() > 10)
-            std::cout << phonebook.getContact(i).get_nickname().substr(0, 9) << ". | ";
+            print_box(phonebook, phonebook.get_contact(i).get_last_name(), phonebook.get_contact(i).get_last_name().length());
+        if (phonebook.get_contact(i).get_nickname().length() > 10)
+            std::cout << phonebook.get_contact(i).get_nickname().substr(0, 9) << ".|";
         else
-            std::cout << phonebook.getContact(i).get_nickname() << " | ";
+            print_box(phonebook, phonebook.get_contact(i).get_nickname(), phonebook.get_contact(i).get_nickname().length());
         std::cout << std::endl;
         i++;
     }
@@ -107,7 +121,7 @@ void    searchContact(PhoneBook& phonebook)
             exit(0);
     }
     index = std::stoi(input);
-    if (index >= 0 && index < phonebook.getNbContact())
+    if (index >= 0 && index < phonebook.get_nb_contact())
         print_contact(phonebook, index);
     else
         std::cout << "Invalid index" << std::endl;
@@ -129,13 +143,5 @@ int     main(void)
         else if (input == "SEARCH")
             searchContact(phonebook);
     }
-    // print_contact(phonebook, 0);
-    // print_contact(phonebook, 1);
-    // print_contact(phonebook, 2);
-    // print_contact(phonebook, 3);
-    // print_contact(phonebook, 4);
-    // print_contact(phonebook, 5);
-    // print_contact(phonebook, 6);
-    // print_contact(phonebook, 7);
     return (0);
 }
