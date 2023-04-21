@@ -6,7 +6,7 @@
 /*   By: mcatal-d <mcatal-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 00:47:02 by mcatal-d          #+#    #+#             */
-/*   Updated: 2023/04/21 04:00:10 by mcatal-d         ###   ########.fr       */
+/*   Updated: 2023/04/21 04:26:34 by mcatal-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,11 @@ void    searchContact(PhoneBook& phonebook)
         std::cout << "Enter index: ";
         if(!std::getline(std::cin, input))
             exit(0);
+    }
+    if (input[0] <= '0' || input[0] >= '9')
+    {
+        std::cout << "Invalid index" << std::endl;
+        return ;
     }
     index = std::stoi(input);
     if (index >= 0 && index < phonebook.get_nb_contact())
