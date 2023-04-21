@@ -6,7 +6,7 @@
 /*   By: mcatal-d <mcatal-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 04:36:59 by mcatal-d          #+#    #+#             */
-/*   Updated: 2023/04/21 05:10:50 by mcatal-d         ###   ########.fr       */
+/*   Updated: 2023/04/21 05:23:12 by mcatal-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,6 @@ int	Account::getNbDeposits( void ) {
 int	Account::getNbWithdrawals( void ) {
     return _totalNbWithdrawals;
 }
-
-// void    Account::_displayTimestamp( void ) {
-//     time_t t = time(0);
-//     std::cout << "[" << t << "] ";
-// }
 
 void Account::_displayTimestamp(void)
 {
